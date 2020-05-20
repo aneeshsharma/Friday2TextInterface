@@ -35,7 +35,11 @@ def poll():
 _thread.start_new_thread(poll, ())
 
 while True:
-    command = input('> ')
+    try:
+        command = input('> ')
+    except EOFError:
+        print('bye')
+        break
     command = formatCommand(command)
     headers = {'content-type': 'application/json'}
     res = requests.post('http://localhost:5000/command',
